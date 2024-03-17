@@ -25,6 +25,7 @@ router
     res.send(`Update user with ID: ${req.params.id}`);
   })
   .delete((req, res) => {
+    console.log(`Delete Request called for /${req.params.id} endpoint`);
     res.send(`Delete user with ID: ${req.params.id}`);
   });
 
