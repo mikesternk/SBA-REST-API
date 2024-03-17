@@ -23,6 +23,11 @@ app.use("/", indexRouter);
 app.use("/users", usersRouter);
 app.use("/grades", gradesRouter);
 
+// Lesson error handling middleware
+app.use((req, res) => {
+  res.status(404);
+  res.json({ error: `Resource not found` });
+});
 // Listener
 app.listen(port, () => {
   console.log(`Express is running on port: ${port}`);
