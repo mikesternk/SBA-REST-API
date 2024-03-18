@@ -42,9 +42,17 @@ router
   .put((req, res) => {
     res.send(`Update user with ID: ${req.params.id}`);
   })
-  .delete((req, res) => {
+  .delete((req, res, next) => {
+    const index = users.findIndex((u) => u.id == req.params.id);
+    if (index !== -1) {
+      const deletedUser = users.splice(index, 1)[0];
+      res.json(deletedUser);
+
+      if (users) res.json(users);
+    } else next();
+
     console.log(`Delete Request called for /${req.params.id} endpoint`);
-    res.send(`Delete user with ID: ${req.params.id}`);
+    // res.send(`Delete user with ID: ${req.params.id}`);
   });
 router.param("id", (req, res, next, id) => {
   req.users = users[id - 1];
