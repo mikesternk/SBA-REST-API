@@ -9,10 +9,6 @@ router.get("/", (req, res) => {
 });
 
 router.post("/", (req, res) => {
-  res.send("Create User");
-});
-
-router.post("/", (req, res) => {
   // Within the POST request route, we create a new user with the data given by the client.
   if (req.body.name && req.body.gender && req.body.email) {
     if (users.find((u) => u.email == req.body.email)) {
