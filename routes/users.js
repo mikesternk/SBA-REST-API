@@ -12,24 +12,7 @@ router.post("/", (req, res) => {
   res.send("Create User");
 });
 
-router
-  .route("/:id")
-  .get((req, res) => {
-    // console.log(req.users);
-    // res.send(`Get user with ID: ${req.params.id}`);
-    const user = users.find((u) => u.id == req.params.id);
-    if (user) res.json(user);
-    else next();
-  })
-  .put((req, res) => {
-    res.send(`Update user with ID: ${req.params.id}`);
-  })
-  .delete((req, res) => {
-    console.log(`Delete Request called for /${req.params.id} endpoint`);
-    res.send(`Delete user with ID: ${req.params.id}`);
-  });
-
-router.post("/api/users", (req, res) => {
+router.post("/", (req, res) => {
   // Within the POST request route, we create a new user with the data given by the client.
   if (req.body.name && req.body.gender && req.body.email) {
     if (users.find((u) => u.email == req.body.email)) {
@@ -51,6 +34,22 @@ router.post("/api/users", (req, res) => {
   }
 });
 
+router
+  .route("/:id")
+  .get((req, res) => {
+    // console.log(req.users);
+    // res.send(`Get user with ID: ${req.params.id}`);
+    const user = users.find((u) => u.id == req.params.id);
+    if (user) res.json(user);
+    else next();
+  })
+  .put((req, res) => {
+    res.send(`Update user with ID: ${req.params.id}`);
+  })
+  .delete((req, res) => {
+    console.log(`Delete Request called for /${req.params.id} endpoint`);
+    res.send(`Delete user with ID: ${req.params.id}`);
+  });
 router.param("id", (req, res, next, id) => {
   req.users = users[id - 1];
   //   console.log(id);
