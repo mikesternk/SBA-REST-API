@@ -4,8 +4,20 @@ const users = require("../data/users");
 
 router.use(logger);
 
-router.get("/", (req, res) => {
-  res.send(users);
+router.get("/", (req, res, next) => {
+  let filteredUser = [...users];
+  const { name, gender } = req.query;
+
+  if (name) {
+    filteredUser = filteredUser.filter((user) => user.name === name);
+    // next();
+  }
+
+  if (gender) {
+    filteredUser = filteredUser.filter((user) => user.gender === gender);
+    // next();
+  }
+  res.send(filteredUser);
 });
 
 router.post("/", (req, res) => {
@@ -32,7 +44,7 @@ router.post("/", (req, res) => {
 
 router
   .route("/:id")
-  .get((req, res) => {
+  .get((req, res, next) => {
     // console.log(req.users);
     // res.send(`Get user with ID: ${req.params.id}`);
     const user = users.find((u) => u.id == req.params.id);

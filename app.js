@@ -2,6 +2,7 @@ const express = require("express");
 const indexRouter = require("./routes/index");
 const usersRouter = require("./routes/users");
 const gradesRouter = require("./routes/grades");
+const teachersRouter = require("./routes/teachers");
 const app = express();
 const port = 5000;
 
@@ -10,8 +11,9 @@ app.set("views", "views");
 app.set("view engine", "ejs");
 
 const bodyParser = require("body-parser");
-const users = require("./data/users.js");
-const grades = require("./data/grades.js");
+const users = require("./data/users");
+const grades = require("./data/grades");
+const teachers = require("./data/teachers");
 
 // MIDDLEWARE
 app.use(express.json());
@@ -22,6 +24,7 @@ app.use("/", indexRouter);
 
 app.use("/users", usersRouter);
 app.use("/grades", gradesRouter);
+app.use("/teachers", teachersRouter);
 
 // Lesson error handling middleware
 app.use((req, res) => {
